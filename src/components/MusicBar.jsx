@@ -4,19 +4,17 @@ import prev from "../assets/playerbuttons/prev.png";
 import play from "../assets/playerbuttons/play.png";
 import next from "../assets/playerbuttons/next.png";
 import repeat from "../assets/playerbuttons/repeat.png";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 const MusicBar = () => {
   const barAlbum = useSelector((state) => state.favourites.musicBar[0]);
-
-  console.log(barAlbum);
 
   return (
     <Container fluid className="fixed-bottom bg-container pt-2">
       <Row className="h-100">
         <Col className="col-lg-10 offset-lg-2">
           <Row className="row h-100 flex-row align-items-center p-2">
-            {barAlbum && (
+            {barAlbum ? (
               <Col className="text-white col-4 flex-row d-flex">
                 <div>
                   <img src={barAlbum.album.cover_small} />
@@ -24,6 +22,16 @@ const MusicBar = () => {
                 <div className="album-bar-text ms-2">
                   <p className="fw-bold">{barAlbum.title}</p>
                   <p>{barAlbum.artist.name}</p>
+                </div>
+              </Col>
+            ) : (
+              <Col className="text-white col-4 flex-row d-flex">
+                <div>
+                  <img src="" />
+                </div>
+                <div className="album-bar-text ms-2">
+                  <p className="fw-bold"></p>
+                  <p></p>
                 </div>
               </Col>
             )}

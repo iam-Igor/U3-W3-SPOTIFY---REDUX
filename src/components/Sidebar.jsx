@@ -5,6 +5,33 @@ const Sidebar = () => {
   const fav = useSelector((state) => state.favourites.content);
   const searchInput = useSelector((state) => state.favourites.search);
   const dispatch = useDispatch();
+
+  const handleSection = async () => {
+    try {
+      let response = await fetch(
+        "https://striveschool-api.herokuapp.com/api/deezer/search?q=" +
+          searchInput,
+        {
+          method: "GET",
+          headers: {
+            "X-RapidAPI-Host": "deezerdevs-deezer.p.rapidapi.com",
+            "X-RapidAPI-Key":
+              "9d408f0366mshab3b0fd8e5ecdf7p1b09f2jsne682a1797fa0",
+          },
+        }
+      );
+      if (response.ok) {
+        let { data } = await response.json();
+
+        dispatch({ type: "SET_SEARCH", payload: data.slice(0, 4) });
+      } else {
+        throw new Error("Error in fetching songs");
+      }
+    } catch (err) {
+      console.log("error", err);
+    }
+  };
+
   return (
     <Col>
       <nav
@@ -46,8 +73,15 @@ const Sidebar = () => {
                   </a>
                 </li>
                 <li>
-                  <form className="input-group mt-3">
+                  <form
+                    className="input-group mt-3"
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      handleSection();
+                    }}
+                  >
                     <input
+                      required
                       type="text"
                       className="form-control"
                       id="searchField"

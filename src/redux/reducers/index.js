@@ -3,6 +3,7 @@ const initialState = {
     content: [],
     musicBar: [],
     search: "",
+    searchData: [],
   },
 };
 
@@ -30,6 +31,14 @@ const mainReducer = (state = initialState, action) => {
         favourites: {
           ...state.favourites,
           search: action.payload,
+        },
+      };
+    case "SET_SEARCH":
+      return {
+        ...state,
+        favourites: {
+          ...state.favourites,
+          searchData: [action.payload],
         },
       };
 
