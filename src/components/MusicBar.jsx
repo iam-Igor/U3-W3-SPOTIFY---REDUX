@@ -8,12 +8,14 @@ import pause from "../assets/playerbuttons/pause.png";
 import { useSelector } from "react-redux";
 import { useRef } from "react";
 import { useState } from "react";
+import { useEffect } from "react";
 const MusicBar = () => {
   const barAlbum = useSelector((state) => state.favourites.musicBar[0]);
   console.log(barAlbum);
 
   const audioRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [currentSrc, setCurrentSrc] = useState("");
 
   const handlePlayPause = () => {
     if (audioRef.current.paused) {
@@ -24,6 +26,18 @@ const MusicBar = () => {
       setIsPlaying(false);
     }
   };
+
+  useEffect(() => {
+    if (barAlbum) {
+      setCurrentSrc(barAlbum.preview);
+    }
+  }, [barAlbum]);
+
+  useEffect(() => {
+    if (currentSrc !== "") {
+      audioRef.current.src = currentSrc;
+    }
+  }, [currentSrc]);
 
   // ¶IL MUSIC PLAYER FUNZIONA
 
@@ -59,7 +73,7 @@ const MusicBar = () => {
                 {barAlbum && (
                   <>
                     <audio ref={audioRef} className="custom-audio">
-                      <source src={barAlbum.preview} type="audio/mp3" />
+                      <source src={currentSrc} type="audio/mp3" />
                       Your browser does not support the audio tag.
                     </audio>
                   </>
