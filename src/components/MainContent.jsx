@@ -29,6 +29,7 @@ const MainContent = () => {
         setIsLoading(false);
 
         return data.slice(0, 4);
+        // qui ritorno direttamnente l'array senza settare lo state in quanto viene settato nello use effect
       } else {
         throw new Error("Error in fetching songs");
       }
@@ -39,6 +40,10 @@ const MainContent = () => {
   };
 
   console.log(staticData);
+
+  //  nello use effect lancio la funziona in modo asicnrono cosicchè la fetch successiva aspetti quella precedente,
+  // poi combino tutti i risultati "statici" in un array e successivamente mappo l'indice dell'array combinato che mi serve per
+  //ciascuna sezione
 
   useEffect(() => {
     const fetchData = async () => {

@@ -7,19 +7,25 @@ import repeat from "../assets/playerbuttons/repeat.png";
 import pause from "../assets/playerbuttons/pause.png";
 import { useSelector } from "react-redux";
 import { useRef } from "react";
+import { useState } from "react";
 const MusicBar = () => {
   const barAlbum = useSelector((state) => state.favourites.musicBar[0]);
   console.log(barAlbum);
 
   const audioRef = useRef(null);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   const handlePlayPause = () => {
     if (audioRef.current.paused) {
       audioRef.current.play();
+      setIsPlaying(true);
     } else {
       audioRef.current.pause();
+      setIsPlaying(false);
     }
   };
+
+  // ¶IL MUSIC PLAYER FUNZIONA
 
   return (
     <Container fluid className="fixed-bottom bg-container pt-2">
@@ -66,14 +72,7 @@ const MusicBar = () => {
                   <img src={prev} alt="prev" />
                 </a>
                 <a href="#" onClick={handlePlayPause}>
-                  <img
-                    src={
-                      audioRef.current && !audioRef.current.paused
-                        ? pause
-                        : play
-                    }
-                    alt="play/pause"
-                  />
+                  <img src={isPlaying ? pause : play} alt="play/pause" />
                 </a>
                 <a href="#">
                   <img src={next} alt="next" />
