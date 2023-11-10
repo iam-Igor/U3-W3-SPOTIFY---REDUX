@@ -4,10 +4,22 @@ import prev from "../assets/playerbuttons/prev.png";
 import play from "../assets/playerbuttons/play.png";
 import next from "../assets/playerbuttons/next.png";
 import repeat from "../assets/playerbuttons/repeat.png";
+import pause from "../assets/playerbuttons/pause.png";
 import { useSelector } from "react-redux";
-
+import { useRef } from "react";
 const MusicBar = () => {
   const barAlbum = useSelector((state) => state.favourites.musicBar[0]);
+  console.log(barAlbum);
+
+  const audioRef = useRef(null);
+
+  const handlePlayPause = () => {
+    if (audioRef.current.paused) {
+      audioRef.current.play();
+    } else {
+      audioRef.current.pause();
+    }
+  };
 
   return (
     <Container fluid className="fixed-bottom bg-container pt-2">
@@ -38,14 +50,30 @@ const MusicBar = () => {
 
             <Col className="col-6 col-md-4 playerControls mb-2">
               <div className="d-flex">
+                {barAlbum && (
+                  <>
+                    <audio ref={audioRef} className="custom-audio">
+                      <source src={barAlbum.preview} type="audio/mp3" />
+                      Your browser does not support the audio tag.
+                    </audio>
+                  </>
+                )}
+
                 <a href="#">
                   <img src={shuffle} alt="shuffle" />
                 </a>
                 <a href="#">
                   <img src={prev} alt="prev" />
                 </a>
-                <a href="#">
-                  <img src={play} alt="play" />
+                <a href="#" onClick={handlePlayPause}>
+                  <img
+                    src={
+                      audioRef.current && !audioRef.current.paused
+                        ? pause
+                        : play
+                    }
+                    alt="play/pause"
+                  />
                 </a>
                 <a href="#">
                   <img src={next} alt="next" />
