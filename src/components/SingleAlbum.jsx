@@ -1,8 +1,10 @@
 import { Col } from "react-bootstrap";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const SingleAlbum = ({ album }) => {
   const dispatch = useDispatch();
+  const location = useNavigate();
 
   return (
     <Col className="text-center position-relative">
@@ -23,7 +25,9 @@ const SingleAlbum = ({ album }) => {
         >
           {album.title}{" "}
         </p>
-        <p>{album.artist.name}</p>
+        <p onClick={() => location(`/Artist/${album.artist.id}`)}>
+          {album.artist.name}
+        </p>
       </div>
     </Col>
   );

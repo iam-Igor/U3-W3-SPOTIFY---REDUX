@@ -33,7 +33,7 @@ const Sidebar = () => {
   };
 
   return (
-    <Col>
+    <Col md={3}>
       <nav
         className="navbar navbar-expand-md fixed-left justify-content-between"
         id="sidebar"
@@ -57,18 +57,12 @@ const Sidebar = () => {
             <div className="navbar-nav">
               <ul>
                 <li>
-                  <a
-                    className="nav-item nav-link d-flex align-items-center"
-                    href="#"
-                  >
+                  <a className="nav-item nav-link d-flex align-items-center">
                     <i className="bi bi-house-door-fill"></i>&nbsp; Home
                   </a>
                 </li>
                 <li>
-                  <a
-                    className="nav-item nav-link d-flex align-items-center"
-                    href="#"
-                  >
+                  <a className="nav-item nav-link d-flex align-items-center">
                     <i className="bi bi-book-fill"></i>&nbsp; Your Library
                   </a>
                 </li>

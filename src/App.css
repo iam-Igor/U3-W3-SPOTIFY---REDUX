@@ -254,3 +254,7 @@ ul {
     transform: rotate(1turn);
   }
 }
+
+.artist-row {
+  margin-left: 11.5%;
+}
